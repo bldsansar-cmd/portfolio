@@ -1,8 +1,6 @@
-window.onresize = resizeWindow;
-
 let fixedSection, mainSection, navSection, mobileNavSection;
 let aboutSection, experienceSection, projectsSection;
-let navInnerHtml, mobileNavHeight;
+let navInnerHtml;
 
 const socialLinks = [
 	{ icon: 'fa-facebook-f', label: 'Facebook' },
@@ -74,7 +72,6 @@ function loadPage() {
 	projectsSection = document.getElementById('projects');
 
 	navInnerHtml = navSection.innerHTML;
-	mobileNavHeight = getStylePropertyValue(mobileNavSection, 'height');
 
 	renderSocialButtons();
 	renderCards(experienceSection, experienceData, 'sub_section flexbox');
@@ -83,8 +80,7 @@ function loadPage() {
 	createPage();
 
 	document.addEventListener('scroll', scrolling);
-	window.addEventListener('resize', setMobileNavSection);
-	setMobileNavSection();
+	window.addEventListener('resize', createPage);
 }
 
 function renderSocialButtons() {
@@ -166,30 +162,14 @@ function createPage() {
 }
 
 function setMainSection() {
-	if (window.innerWidth <= 900) {
-		fixedSection.style.position = 'absolute';
-		mainSection.style.marginTop = '400px';
-	} else {
-		fixedSection.style.position = 'fixed';
-		mainSection.style.marginTop = `${parseFloat(mobileNavHeight) * 2}px`;
-	}
-}
-
-function resizeWindow() {
-	createPage();
-}
-
-function getStylePropertyValue(element, prop) {
-	return getComputedStyle(element, null).getPropertyValue(prop);
+	const isMobile = window.innerWidth <= 900;
+	fixedSection.style.position = isMobile ? 'absolute' : '';
+	mainSection.style.marginTop = isMobile ? '400px' : '';
 }
 
 function scrollToElm(id) {
 	const el = document.getElementById(id);
 	if (!el) return;
 	const y = el.getBoundingClientRect().top + window.scrollY - 50;
-	window.scrollTo({
-		top: y
-		// ,
-		// behavior: 'smooth'
-	});
+	window.scrollTo({ top: y });
 }
