@@ -90,7 +90,7 @@ h1 {
 		"header main"
 		"header footer";
 	margin: 0 auto;
-	grid-template-columns: 40% 60%;
+	grid-template-columns: minmax(0, 40%) minmax(0, 60%);
 	line-height: var(--line_height_common);
 	padding: var(--padding_big);
 }
@@ -112,7 +112,7 @@ header>* {
 	position: fixed;
 	z-index: 1;
 	overflow-x: hidden;
-	width: var(--min_width);
+	width: min(var(--min_width), 100%);
 }
 
 .fixed_section.flexbox {
@@ -139,8 +139,8 @@ main {
 
 main.flexbox {
 	flex-direction: column;
+	flex-wrap: wrap;
 	gap: var(--gap_bigger);
-	flex-flow: wrap;
 }
 
 footer {
@@ -206,6 +206,10 @@ p {
 	margin-bottom: var(--margin_common);
 }
 
+.sub_section_tags.flexbox {
+	flex-wrap: wrap;
+}
+
 .tag {
 	padding: var(--padding_small) var(--padding_common);
 	background-color: var(--clr_tag);
@@ -215,6 +219,7 @@ p {
 
 .social_buttons {
 	align-items: center;
+	flex-wrap: wrap;
 	gap: var(--gap_big);
 }
 
@@ -302,7 +307,7 @@ ul.flexbox li {
 @media only screen and (max-width: 900px) {
 
 	.container {
-		grid-template-columns: 1fr;
+		grid-template-columns: minmax(0, 1fr);
 		grid-template-areas:
 			"header"
 			"main"
