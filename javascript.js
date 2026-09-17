@@ -2,6 +2,8 @@ let fixedSection, mainSection, navSection, mobileNavSection;
 let aboutSection, experienceSection, projectsSection;
 let navInnerHtml;
 
+let currentLang = localStorage.getItem('lang') === 'ja' ? 'ja' : 'en';
+
 const socialLinks = [
 	{ icon: 'fa-facebook-f', label: 'Facebook' },
 	{ icon: 'fa-twitter', label: 'Twitter' },
@@ -9,57 +11,9 @@ const socialLinks = [
 	{ icon: 'fa-youtube', label: 'Youtube' },
 ];
 
-const commonTags = ['java', 'javascript', 'html', 'css', 'mysql'];
-
-const experienceData = [
-	{
-		period: '2000-2001',
-		title: 'front-end engineer',
-		detail: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores perspiciatis assumenda omnis hic voluptates minus harum quod, consequatur adipisci officiis eligendi, sed inventore nisi velit odio similique reiciendis provident in.',
-		tags: commonTags,
-	},
-	{
-		period: '2000-2001',
-		title: 'back-end engineer',
-		detail: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores perspiciatis assumenda omnis hic voluptates minus harum quod, consequatur adipisci officiis eligendi, sed inventore nisi velit odio similique reiciendis provident in.',
-		tags: commonTags,
-	},
-	{
-		period: '2000-2001',
-		title: 'senior engineer and team leader',
-		detail: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores perspiciatis assumenda omnis hic voluptates minus harum quod, consequatur adipisci officiis eligendi, sed inventore nisi velit odio similique reiciendis provident in.',
-		tags: commonTags,
-	},
-	{
-		period: '2000-2001',
-		title: 'senior engineer and advisor.',
-		detail: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores perspiciatis assumenda omnis hic voluptates minus harum quod, consequatur adipisci officiis eligendi, sed inventore nisi velit odio similique reiciendis provident in.',
-		tags: commonTags,
-	},
-];
-
-const projectsData = [
-	{
-		title: 'ABCD web application',
-		detail: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores perspiciatis assumenda omnis hic voluptates minus harum quod, consequatur adipisci officiis eligendi, sed inventore nisi velit odio similique reiciendis provident in.',
-		tags: commonTags,
-	},
-	{
-		title: 'QR code generator',
-		detail: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores perspiciatis assumenda omnis hic voluptates minus harum quod, consequatur adipisci officiis eligendi, sed inventore nisi velit odio similique reiciendis provident in.',
-		tags: commonTags,
-	},
-	{
-		title: 'Find near hospital',
-		detail: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores perspiciatis assumenda omnis hic voluptates minus harum quod, consequatur adipisci officiis eligendi, sed inventore nisi velit odio similique reiciendis provident in.',
-		tags: commonTags,
-	},
-	{
-		title: 'Near vegan (find nice vegan restaurant web service)',
-		detail: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores perspiciatis assumenda omnis hic voluptates minus harum quod, consequatur adipisci officiis eligendi, sed inventore nisi velit odio similique reiciendis provident in.',
-		tags: commonTags,
-	},
-];
+function getMessages() {
+	return currentLang === 'ja' ? message_ja : message_en;
+}
 
 function loadPage() {
 	mainSection = document.querySelector('main');
@@ -71,16 +25,62 @@ function loadPage() {
 	experienceSection = document.getElementById('experience');
 	projectsSection = document.getElementById('projects');
 
-	navInnerHtml = navSection.innerHTML;
-
 	renderSocialButtons();
-	renderCards(experienceSection, experienceData, 'sub_section flexbox');
-	renderCards(projectsSection, projectsData, 'sub_section_hoverable');
+	renderPage();
 
 	createPage();
 
 	document.addEventListener('scroll', scrolling);
 	window.addEventListener('resize', createPage);
+}
+
+function setLanguage(lang) {
+	if (lang === currentLang) return;
+	currentLang = lang;
+	localStorage.setItem('lang', lang);
+	renderPage();
+}
+
+function buildNavHtml(messages) {
+	const otherLang = currentLang === 'en' ? 'ja' : 'en';
+	return `
+		<ul class="flexbox">
+			<li><a href="javascript:scrollToElm('about');" class="nav_link" id="nav_about">${messages.nav.about}</a></li>
+			<li><a href="javascript:scrollToElm('experience');" class="nav_link" id="nav_experience">${messages.nav.experience}</a></li>
+			<li><a href="javascript:scrollToElm('projects');" class="nav_link" id="nav_projects">${messages.nav.projects}</a></li>
+		</ul>
+		<div class="lang_switcher flexbox">
+			<a href="javascript:setLanguage('${otherLang}');" class="lang_link" id="lang_switch">${messages.switchLabel}</a>
+		</div>
+	`;
+}
+
+function renderPage() {
+	const messages = getMessages();
+
+	document.documentElement.lang = currentLang;
+
+	document.getElementById('tagline').textContent = messages.tagline;
+	document.getElementById('intro').textContent = messages.intro;
+
+	document.getElementById('about_title').textContent = messages.sections.about;
+	document.getElementById('experience_title').textContent = messages.sections.experience;
+	document.getElementById('projects_title').textContent = messages.sections.projects;
+
+	document.getElementById('about_content').innerHTML = messages.aboutText
+		.map(text => `<p>${text}</p>`).join('');
+
+	document.getElementById('footer_text').textContent = messages.footer;
+
+	experienceSection.querySelectorAll('.sub_section.flexbox').forEach(el => el.remove());
+	projectsSection.querySelectorAll('.sub_section_hoverable').forEach(el => el.remove());
+	renderCards(experienceSection, messages.experience, 'sub_section flexbox');
+	renderCards(projectsSection, messages.projects, 'sub_section_hoverable');
+
+	navInnerHtml = buildNavHtml(messages);
+	navSection.innerHTML = '';
+	mobileNavSection.innerHTML = '';
+	setMobileNavSection();
 }
 
 function renderSocialButtons() {
