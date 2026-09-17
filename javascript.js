@@ -1,6 +1,6 @@
-let fixedSection, mainSection, navSection, mobileNavSection;
+let navSection, mobileNavSection;
 let aboutSection, experienceSection, projectsSection;
-let navInnerHtml;
+let navInnerHtml, mobileHeaderHeight;
 
 const socialLinks = [
 	{ icon: 'fa-facebook-f', label: 'Facebook' },
@@ -62,25 +62,24 @@ const projectsData = [
 ];
 
 function loadPage() {
-	mainSection = document.querySelector('main');
 	navSection = document.querySelector('nav');
 	mobileNavSection = document.querySelector('.mobile_header');
-	fixedSection = document.querySelector('.fixed_section');
 
 	aboutSection = document.getElementById('about');
 	experienceSection = document.getElementById('experience');
 	projectsSection = document.getElementById('projects');
 
 	navInnerHtml = navSection.innerHTML;
+	mobileHeaderHeight = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--mobile_header_height'));
 
 	renderSocialButtons();
 	renderCards(experienceSection, experienceData, 'sub_section flexbox');
 	renderCards(projectsSection, projectsData, 'sub_section_hoverable');
 
-	createPage();
+	setMobileNavSection();
 
 	document.addEventListener('scroll', scrolling);
-	window.addEventListener('resize', createPage);
+	window.addEventListener('resize', setMobileNavSection);
 }
 
 function renderSocialButtons() {
@@ -114,7 +113,7 @@ function setMobileNavSection() {
 	if (!aboutSection || !mobileNavSection || !navSection) return;
 
 	const isMobile = window.innerWidth <= 900;
-	const scrolled = window.scrollY >= aboutSection.offsetTop;
+	const scrolled = window.scrollY >= aboutSection.offsetTop - mobileHeaderHeight;
 
 	if (isMobile && scrolled) {
 		mobileNavSection.style.display = 'flex';
@@ -145,7 +144,7 @@ function scrolling() {
 	if (!navLinks.about || !navLinks.experience || !navLinks.projects) return;
 
 	Object.values(navLinks).forEach(a => a.classList.remove('selected'));
-	const scrollY = window.scrollY + 60;
+	const scrollY = window.scrollY + mobileHeaderHeight;
 
 	if (scrollY < experienceSection.offsetTop) {
 		navLinks.about.classList.add('selected');
@@ -154,17 +153,6 @@ function scrolling() {
 	} else {
 		navLinks.projects.classList.add('selected');
 	}
-}
-
-function createPage() {
-	setMainSection();
-	setMobileNavSection();
-}
-
-function setMainSection() {
-	const isMobile = window.innerWidth <= 900;
-	fixedSection.style.position = isMobile ? 'absolute' : '';
-	mainSection.style.marginTop = isMobile ? '400px' : '';
 }
 
 function scrollToElm(id) {

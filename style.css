@@ -97,7 +97,6 @@ h1 {
 
 header {
 	grid-area: header;
-	margin-top: calc(var(--mobile_header_height)*2);
 }
 
 header h1 {
@@ -134,7 +133,6 @@ nav a {
 
 main {
 	grid-area: main;
-	margin-top: calc(var(--mobile_header_height)*2);
 }
 
 main.flexbox {
@@ -294,10 +292,12 @@ ul.flexbox li {
 
 .mobile_header a {
 	color: var(--clr_unselected_text);
+	transition: color 0.3s ease, font-size 0.3s ease;
 }
 
 .mobile_header a.selected {
-	color: var(--clr_selected_text);
+	color: white;
+	font-size: var(--font_size_big);
 }
 
 .mobile_header a:hover {
@@ -318,6 +318,14 @@ ul.flexbox li {
 		flex-direction: column;
 	}
 
+	.fixed_section {
+		position: static;
+	}
+
+	main {
+		margin-top: var(--mobile_header_height);
+	}
+
 	.mobile_header {
 		display: flex;
 		justify-content: left;
@@ -330,9 +338,5 @@ ul.flexbox li {
 
 	ul.flexbox {
 		flex-direction: row;
-	}
-
-	.mobile_header a.selected {
-		color: var(--clr_selected_text);
 	}
 }
