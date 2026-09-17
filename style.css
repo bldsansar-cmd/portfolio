@@ -122,10 +122,9 @@ header>* {
 nav {
 	grid-area: nav;
 	margin: var(--margin_biggest) 0;
-}
-
-nav.flexbox {
+	display: flex;
 	align-items: center;
+	gap: var(--gap_common);
 }
 
 nav a {
@@ -134,7 +133,7 @@ nav a {
 
 .lang_switcher {
 	margin-left: auto;
-	gap: var(--padding_small);
+	flex-shrink: 0;
 }
 
 .lang_link {
@@ -143,6 +142,7 @@ nav a {
 	border: 1px solid var(--clr_unselected_text);
 	border-radius: var(--border_radius);
 	color: var(--clr_unselected_text);
+	white-space: nowrap;
 }
 
 .lang_link:hover {
