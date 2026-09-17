@@ -170,6 +170,8 @@ function setMainSection() {
 function scrollToElm(id) {
 	const el = document.getElementById(id);
 	if (!el) return;
-	const y = el.getBoundingClientRect().top + window.scrollY - 50;
+	const mobileHeaderVisible = window.getComputedStyle(mobileNavSection).display === 'flex';
+	const headerOffset = mobileHeaderVisible ? mobileNavSection.offsetHeight + 10 : 50;
+	const y = el.getBoundingClientRect().top + window.scrollY - headerOffset;
 	window.scrollTo({ top: y });
 }
