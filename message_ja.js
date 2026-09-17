@@ -3,6 +3,7 @@ const commonTags_ja = ['java', 'javascript', 'html', 'css', 'mysql'];
 const message_ja = {
 	tagline: 'ライター、フリーランスのソフトウェアエンジニア。',
 	intro: 'フロントエンドからバックエンドまで開発を行い、時には文章も執筆します。',
+	switchLabel: 'EN',
 
 	nav: {
 		about: '自己紹介',

@@ -149,11 +149,6 @@ nav a {
 	color: var(--clr_selected_text);
 }
 
-.lang_link.selected {
-	color: var(--clr_selected_text);
-	border-color: var(--clr_selected_text);
-}
-
 .selected {
 	color: var(--clr_selected_text);
 }

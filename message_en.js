@@ -3,6 +3,7 @@ const commonTags_en = ['java', 'javascript', 'html', 'css', 'mysql'];
 const message_en = {
 	tagline: 'Writer, freelancer software engineer.',
 	intro: 'I develop front-end to back-end program, sometimes write.',
+	switchLabel: '日本語',
 
 	nav: {
 		about: 'about',

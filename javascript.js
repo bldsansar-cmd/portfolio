@@ -42,6 +42,7 @@ function setLanguage(lang) {
 }
 
 function buildNavHtml(messages) {
+	const otherLang = currentLang === 'en' ? 'ja' : 'en';
 	return `
 		<ul class="flexbox">
 			<li><a href="javascript:scrollToElm('about');" class="nav_link" id="nav_about">${messages.nav.about}</a></li>
@@ -49,8 +50,7 @@ function buildNavHtml(messages) {
 			<li><a href="javascript:scrollToElm('projects');" class="nav_link" id="nav_projects">${messages.nav.projects}</a></li>
 		</ul>
 		<div class="lang_switcher flexbox">
-			<a href="javascript:setLanguage('en');" class="lang_link${currentLang === 'en' ? ' selected' : ''}" id="lang_en">EN</a>
-			<a href="javascript:setLanguage('ja');" class="lang_link${currentLang === 'ja' ? ' selected' : ''}" id="lang_ja">JA</a>
+			<a href="javascript:setLanguage('${otherLang}');" class="lang_link" id="lang_switch">${messages.switchLabel}</a>
 		</div>
 	`;
 }
