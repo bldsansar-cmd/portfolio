@@ -146,9 +146,9 @@ function scrolling() {
 	Object.values(navLinks).forEach(a => a.classList.remove('selected'));
 	const scrollY = window.scrollY + mobileHeaderHeight;
 
-	if (scrollY < experienceSection.offsetTop) {
+	if (scrollY < aboutSection.offsetTop + aboutSection.offsetHeight) {
 		navLinks.about.classList.add('selected');
-	} else if (scrollY < projectsSection.offsetTop) {
+	} else if (scrollY < experienceSection.offsetTop + experienceSection.offsetHeight) {
 		navLinks.experience.classList.add('selected');
 	} else {
 		navLinks.projects.classList.add('selected');

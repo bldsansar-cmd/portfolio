@@ -292,12 +292,11 @@ ul.flexbox li {
 
 .mobile_header a {
 	color: var(--clr_unselected_text);
-	transition: color 0.3s ease, font-size 0.3s ease;
+	transition: color 0.3s ease;
 }
 
 .mobile_header a.selected {
 	color: white;
-	font-size: var(--font_size_big);
 }
 
 .mobile_header a:hover {
@@ -320,6 +319,10 @@ ul.flexbox li {
 
 	.fixed_section {
 		position: static;
+	}
+
+	main {
+		margin-top: var(--mobile_header_height);
 	}
 
 	.mobile_header {
