@@ -322,10 +322,6 @@ ul.flexbox li {
 		position: static;
 	}
 
-	main {
-		margin-top: var(--mobile_header_height);
-	}
-
 	.mobile_header {
 		display: flex;
 		justify-content: left;
