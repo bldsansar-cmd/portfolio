@@ -8,14 +8,14 @@
 
 	"nav": {
 		"about": "about",
-		"experience": "works",
-		"projects": "projects"
+		"experience": "work",
+		"projects": "project"
 	},
 
 	"sectionTitles": {
 		"about": "About",
-		"experience": "works",
-		"projects": "Projects"
+		"experience": "work",
+		"projects": "Project"
 	},
 
 	"aboutData": [
