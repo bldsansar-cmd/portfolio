@@ -3,6 +3,8 @@ let aboutSection, experienceSection, projectsSection;
 let navInnerHtml, mobileHeaderHeight;
 
 let currentLang = localStorage.getItem('lang') === 'ja' ? 'ja' : 'en';
+let currentTheme = localStorage.getItem('theme') === 'light' ? 'light' : 'dark';
+let lastContent;
 const contentCache = {};
 
 const socialLinks = [{
@@ -33,6 +35,10 @@ async function loadPage() {
 
 	mobileHeaderHeight = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--mobile_header_height'));
 
+	if (currentTheme === 'light') {
+		document.documentElement.setAttribute('data-theme', 'light');
+	}
+
 	renderSocialButtons();
 	await setLanguage(currentLang);
 
@@ -58,13 +64,18 @@ async function setLanguage(lang) {
 }
 
 function renderPage(content) {
+	lastContent = content;
 	document.getElementById('tagline').textContent = content.tagline;
-	document.getElementById('intro').textContent = content.intro;
+	document.getElementById('intro').innerHTML = content.intro
+		.map(paragraph => `<p>${paragraph}</p>`).join('');
 
 	document.getElementById('about_title').textContent = content.sectionTitles.about;
 	document.getElementById('experience_title').textContent = content.sectionTitles.experience;
 	document.getElementById('resume_download').textContent = content.downloadLabel;
 	document.getElementById('projects_title').textContent = content.sectionTitles.projects;
+
+	document.getElementById('experience_count').textContent = formatCount(content.experienceData.length);
+	document.getElementById('projects_count').textContent = formatCount(content.projectsData.length);
 
 	document.getElementById('about_content').innerHTML = content.aboutData
 		.map(paragraph => `<p>${paragraph}</p>`).join('');
@@ -83,17 +94,43 @@ function renderPage(content) {
 	setMobileNavSection();
 }
 
+function formatCount(count) {
+	return currentLang === 'ja' ? `(${count}件)` : `(${count})`;
+}
+
 function buildNavHtml(content) {
 	const otherLang = currentLang === 'en' ? 'ja' : 'en';
 	const switchLabel = otherLang === 'ja' ? '日本語' : 'en';
+	const themeLabel = currentLang === 'en' ?
+		(currentTheme === 'light' ? 'night' : 'day') :
+		(currentTheme === 'light' ? '夜' : '昼');
 	return `
-		<ul class="flexbox">
+		<ul class="flexbox nav_links">
 			<li><a href="javascript:scrollToElm('about');" class="nav_link" id="nav_about">${content.nav.about}</a></li>
 			<li><a href="javascript:scrollToElm('experience');" class="nav_link" id="nav_experience">${content.nav.experience}</a></li>
 			<li><a href="javascript:scrollToElm('projects');" class="nav_link" id="nav_projects">${content.nav.projects}</a></li>
+		</ul>
+		<ul class="flexbox util_links">
 			<li><a href="javascript:setLanguage('${otherLang}');" class="lang_link" id="lang_switch">${switchLabel}</a></li>
+			<li><a href="javascript:toggleTheme();" class="lang_link" id="theme_switch">${themeLabel}</a></li>
 		</ul>
 	`;
+}
+
+function toggleTheme() {
+	currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+	localStorage.setItem('theme', currentTheme);
+	if (currentTheme === 'light') {
+		document.documentElement.setAttribute('data-theme', 'light');
+	} else {
+		document.documentElement.removeAttribute('data-theme');
+	}
+	if (lastContent) {
+		navInnerHtml = buildNavHtml(lastContent);
+		navSection.innerHTML = '';
+		mobileNavSection.innerHTML = '';
+		setMobileNavSection();
+	}
 }
 
 function renderSocialButtons() {
@@ -111,11 +148,14 @@ function renderSocialButtons() {
 }
 
 function renderCards(section, items, wrapperClass) {
-	section.insertAdjacentHTML('beforeend', items.map(item => `
+	section.insertAdjacentHTML('beforeend', items.map((item, index) => `
 		<div class="${wrapperClass}"${item.link ? ` data-link="${item.link}"` : ''}>
-			<div class="sub_section_item">${item.period || ''}</div>
 			<div class="sub_section_content flexbox">
-				<h3 class="sub_section_title">${item.title}</h3>
+				<h3 class="sub_section_title">
+					<span class="sub_section_number">${index + 1}.</span>
+					<span class="sub_section_title_text">${item.title}</span>
+				</h3>
+				<div class="sub_section_item">${item.period || ''}</div>
 				<div class="sub_section_detail">${item.detail}</div>
 				<div class="sub_section_tags flexbox">${renderTags(item.tags)}</div>
 				${item.link ? `<a href="${item.link}" target="_blank" rel="noopener noreferrer" class="project_link">GitHub</a>` : ''}
@@ -154,6 +194,15 @@ function setMobileNavSection() {
 			navSection.innerHTML = navInnerHtml;
 		}
 	}
+
+	updateMobileHeaderHeight(isMobile && scrolled);
+}
+
+function updateMobileHeaderHeight(isShown) {
+	const baseHeight = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--mobile_header_height'));
+	const actualHeight = isShown ? mobileNavSection.offsetHeight : baseHeight;
+	mobileHeaderHeight = actualHeight;
+	document.documentElement.style.setProperty('--mobile_header_height_actual', `${actualHeight}px`);
 }
 
 function scrolling() {

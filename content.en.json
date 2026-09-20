@@ -1,7 +1,10 @@
 {
 	"tagline": "Software Engineer",
 	"downloadLabel": "Download",
-	"intro": "Front-end to back-end development. I started as a developer in 2009 and have been freelancing since June 2018.",
+	"intro": [
+		"Front-end to back-end development. I joined a Japanese IT company in 2009 and have been working as a freelancer since June 2018.",
+		"I exercise regularly and have confidence in my physical stamina."
+	],
 
 	"nav": {
 		"about": "about",
