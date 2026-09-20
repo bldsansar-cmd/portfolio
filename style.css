@@ -72,7 +72,7 @@ body {
 a,
 .social_button {
 	color: var(--clr_common_text);
-	text-decoration: none;
+	text-decoration: underline;
 	cursor: pointer;
 }
 
@@ -129,6 +129,7 @@ nav.flexbox {
 
 nav a {
 	text-transform: uppercase;
+	text-decoration: none;
 }
 
 .lang_link {
@@ -210,7 +211,6 @@ section.flexbox {
 
 section h2 {
 	text-transform: uppercase;
-	text-decoration: underline;
 }
 
 .section_header {
@@ -337,6 +337,7 @@ ul.flexbox li {
 
 .nav_link {
 	text-transform: uppercase;
+	text-decoration: none;
 }
 
 .mobile_header a {
