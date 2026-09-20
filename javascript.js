@@ -98,6 +98,7 @@ function buildNavHtml(content) {
 
 function renderSocialButtons() {
 	const container = document.querySelector('.social_buttons');
+	if (!container) return;
 	container.innerHTML = socialLinks.map(({
 		icon,
 		label

@@ -107,6 +107,11 @@ header>* {
 	line-height: var(--line_height_bigger);
 }
 
+header h2,
+header p {
+	line-height: var(--line_height_common);
+}
+
 .fixed_section {
 	position: fixed;
 	z-index: 1;
