@@ -134,12 +134,15 @@ nav a {
 .lang_link {
 	font-size: 0.8rem;
 	padding: var(--padding_small) var(--padding_common);
+	color: var(--clr_unselected_text);
 	border: 1px solid var(--clr_unselected_text);
 	border-radius: var(--border_radius);
 }
 
-.lang_link:hover {
-	color: var(--clr_selected_text);
+.lang_link:hover,
+.lang_link:active {
+	color: white;
+	border-color: white;
 }
 
 .selected {
@@ -220,14 +223,15 @@ section h2 {
 	text-decoration: none;
 	font-size: 0.8rem;
 	padding: var(--padding_small) var(--padding_common);
+	color: var(--clr_unselected_text);
 	border: 1px solid var(--clr_unselected_text);
 	border-radius: var(--border_radius);
-	/* color: var(--clr_unselected_text); */
 }
 
-.download_button:hover {
-	color: var(--clr_selected_text);
-	border-color: var(--clr_selected_text);
+.download_button:hover,
+.download_button:active {
+	color: white;
+	border-color: white;
 }
 
 .project_link {
