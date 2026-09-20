@@ -62,6 +62,7 @@ function renderPage(content) {
 
 	document.getElementById('about_title').textContent = content.sectionTitles.about;
 	document.getElementById('experience_title').textContent = content.sectionTitles.experience;
+	document.getElementById('resume_download').textContent = content.downloadLabel;
 	document.getElementById('projects_title').textContent = content.sectionTitles.projects;
 
 	document.getElementById('about_content').innerHTML = content.aboutData

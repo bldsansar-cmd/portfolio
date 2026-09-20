@@ -201,9 +201,29 @@ section.flexbox {
 	flex-direction: column;
 }
 
-section>h2 {
+section h2 {
 	text-transform: uppercase;
 	text-decoration: underline;
+}
+
+.section_header {
+	justify-content: space-between;
+	align-items: center;
+}
+
+.download_button {
+	text-transform: none;
+	text-decoration: none;
+	font-size: 0.8rem;
+	padding: var(--padding_small) var(--padding_common);
+	border: 1px solid var(--clr_unselected_text);
+	border-radius: var(--border_radius);
+	/* color: var(--clr_unselected_text); */
+}
+
+.download_button:hover {
+	color: var(--clr_selected_text);
+	border-color: var(--clr_selected_text);
 }
 
 .flexbox {
