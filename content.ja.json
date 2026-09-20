@@ -9,13 +9,13 @@
 	"nav": {
 		"about": "自己紹介",
 		"experience": "経歴",
-		"projects": "プロジェクト"
+		"projects": "制作"
 	},
 
 	"sectionTitles": {
 		"about": "自己紹介",
 		"experience": "経歴",
-		"projects": "プロジェクト"
+		"projects": "制作"
 	},
 
 	"aboutData": [
@@ -27,8 +27,7 @@
 
 	"footerData": "このサイトはHTML・CSS・JavaScriptによるシンプルな構成で開発され、コンテンツはJSONファイルから読み込んでいます。GitHub Pagesで公開されています。",
 
-	"experienceData": [
-		{
+	"experienceData": [{
 			"period": "2026/8 - 現在",
 			"title": "自社向けシステムの要件定義〜リリース、保守、運用作業",
 			"detail": "自社向けシステムの要件定義・設計・製造・テスト・リリースを担当。保守・運用、他ソフトウェアとのデータ連携開発も対応。",
@@ -120,8 +119,7 @@
 		}
 	],
 
-	"projectsData": [
-		{
+	"projectsData": [{
 			"title": "Portfolioサイト",
 			"detail": "開発者としての自分をお客様に知っていただきやすくするため、このポートフォリオサイトを制作しました。",
 			"tags": ["html", "javascript", "css"],

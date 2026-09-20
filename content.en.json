@@ -8,13 +8,13 @@
 
 	"nav": {
 		"about": "about",
-		"experience": "experience",
+		"experience": "works",
 		"projects": "projects"
 	},
 
 	"sectionTitles": {
 		"about": "About",
-		"experience": "Experience",
+		"experience": "works",
 		"projects": "Projects"
 	},
 
@@ -119,8 +119,7 @@
 		}
 	],
 
-	"projectsData": [
-		{
+	"projectsData": [{
 			"title": "Portfolio Site",
 			"detail": "I built this portfolio site to make it easier for clients to get to know me as a developer.",
 			"tags": ["html", "javascript", "css"],

@@ -232,14 +232,10 @@ function scrolling() {
 
 function scrollToElm(id) {
 	const el = document.getElementById(id);
-	var topScrollHeight = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--mobile_header_height'));
-	const isMobile = window.innerWidth <= 900;
-
 	if (!el) return;
 
-	if (!isMobile) {
-		topScrollHeight = 50;
-	}
+	const isMobile = window.innerWidth <= 900;
+	const topScrollHeight = isMobile ? mobileHeaderHeight : 50;
 
 	const y = el.getBoundingClientRect().top + window.scrollY - topScrollHeight;
 	window.scrollTo({
