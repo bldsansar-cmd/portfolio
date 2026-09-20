@@ -138,6 +138,7 @@ nav a {
 	color: var(--clr_unselected_text);
 	border: 1px solid var(--clr_unselected_text);
 	border-radius: var(--border_radius);
+	text-decoration: none;
 }
 
 .lang_link:hover,
