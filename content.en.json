@@ -120,12 +120,14 @@
 		{
 			"title": "Portfolio Site",
 			"detail": "I built this portfolio site to make it easier for clients to get to know me as a developer.",
-			"tags": ["html", "javascript", "css"]
+			"tags": ["html", "javascript", "css"],
+			"link": "https://github.com/bldsansar-cmd/portfolio"
 		},
 		{
 			"title": "QR Code Generator",
 			"detail": "Developed a tool to easily generate QR codes from text or URLs, with a focus on a simple, easy-to-use interface.",
-			"tags": ["java", "springboot", "javascript", "thymeleaf", "css", "mysql"]
+			"tags": ["java", "springboot", "javascript", "thymeleaf", "css", "mysql"],
+			"link": "https://github.com/bldsansar-cmd/qr-code-generator"
 		}
 	]
 }

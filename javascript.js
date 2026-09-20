@@ -38,6 +38,7 @@ async function loadPage() {
 
 	document.addEventListener('scroll', scrolling);
 	window.addEventListener('resize', setMobileNavSection);
+	document.addEventListener('click', openCardLink);
 }
 
 async function loadContent(lang) {
@@ -110,15 +111,23 @@ function renderSocialButtons() {
 
 function renderCards(section, items, wrapperClass) {
 	section.insertAdjacentHTML('beforeend', items.map(item => `
-		<div class="${wrapperClass}">
+		<div class="${wrapperClass}"${item.link ? ` data-link="${item.link}"` : ''}>
 			<div class="sub_section_item">${item.period || ''}</div>
 			<div class="sub_section_content flexbox">
 				<h3 class="sub_section_title">${item.title}</h3>
 				<div class="sub_section_detail">${item.detail}</div>
 				<div class="sub_section_tags flexbox">${renderTags(item.tags)}</div>
+				${item.link ? `<a href="${item.link}" target="_blank" rel="noopener noreferrer" class="project_link">GitHub</a>` : ''}
 			</div>
 		</div>
 	`).join(''));
+}
+
+function openCardLink(event) {
+	if (event.target.closest('a')) return;
+	const card = event.target.closest('[data-link]');
+	if (!card) return;
+	window.open(card.dataset.link, '_blank', 'noopener,noreferrer');
 }
 
 function renderTags(tags) {

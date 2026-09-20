@@ -121,12 +121,14 @@
 		{
 			"title": "Portfolioサイト",
 			"detail": "開発者としての自分をお客様に知っていただきやすくするため、このポートフォリオサイトを制作しました。",
-			"tags": ["html", "javascript", "css"]
+			"tags": ["html", "javascript", "css"],
+			"link": "https://github.com/bldsansar-cmd/portfolio"
 		},
 		{
 			"title": "QRコードジェネレーター",
 			"detail": "テキストやURLから簡単にQRコードを生成できるツールを開発しました。シンプルで使いやすいインターフェースを重視しました。",
-			"tags": ["java", "springboot", "javascript", "thymeleaf", "css", "mysql"]
+			"tags": ["java", "springboot", "javascript", "thymeleaf", "css", "mysql"],
+			"link": "https://github.com/bldsansar-cmd/qr-code-generator"
 		}
 	]
 }

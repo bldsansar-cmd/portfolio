@@ -197,6 +197,10 @@ footer p {
 	background-color: var(--clr_hover);
 }
 
+[data-link] {
+	cursor: pointer;
+}
+
 section.flexbox {
 	flex-direction: column;
 }
@@ -224,6 +228,12 @@ section h2 {
 .download_button:hover {
 	color: var(--clr_selected_text);
 	border-color: var(--clr_selected_text);
+}
+
+.project_link {
+	display: inline-block;
+	align-self: flex-start;
+	margin-top: var(--padding_small);
 }
 
 .flexbox {
