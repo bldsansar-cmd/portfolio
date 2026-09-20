@@ -1,0 +1,130 @@
+{
+	"tagline": "Software Engineer",
+	"intro": "Front-end to back-end development. I started as a developer in 2009 and have been freelancing since June 2018.",
+
+	"nav": {
+		"about": "about",
+		"experience": "experience",
+		"projects": "projects"
+	},
+
+	"sectionTitles": {
+		"about": "About",
+		"experience": "Experience",
+		"projects": "Projects"
+	},
+
+	"aboutData": [
+		"Hi, I'm a software engineer working broadly across front-end to back-end development. I focus on building services that are easy to use and easy to maintain.",
+		"I'm confident in my communication and adaptability, and can quickly settle into a team. I can work in Japanese at a business level.",
+		"I solve technical challenges with broad experience and adaptability, and approach my work with responsibility and persistence. I have release experience on both on-premise and AWS environments, and can communicate in English at an intermediate level.",
+		"Beyond professional development, I also have full-stack development experience using Python, React, Node, and Java in personal projects."
+	],
+
+	"footerData": "This site is built with plain HTML, CSS, and JavaScript, with content loaded from JSON files, and is hosted on GitHub Pages.",
+
+	"experienceData": [{
+			"period": "2026/8 - Present",
+			"title": "In-house System: Requirements to Release, Maintenance & Operations",
+			"detail": "Responsible for requirements definition, design, development, testing, and release of an in-house system, along with ongoing maintenance, operations, and data integration with other internal software.",
+			"tags": ["java", "spring boot", "jpa", "aws"]
+		},
+		{
+			"period": "2025/11 - 2026/7",
+			"title": "Insurance System Integration & DB Performance",
+			"detail": "Led modernization of a legacy insurance system framework, system integration, and database performance improvements. Technical lead for a team of up to 25.",
+			"tags": ["java", "oracle", "plsql"]
+		},
+		{
+			"period": "2023/01 - 2025/10",
+			"title": "Insurance System Renewal (Requirements to Release)",
+			"detail": "Owned an insurance system framework renewal end-to-end, from requirements definition through production release. Technical lead for a team of up to 15.",
+			"tags": ["java", "spring boot", "javascript", "sqlserver"]
+		},
+		{
+			"period": "2022/04 - 2022/12",
+			"title": "Insurance Management System",
+			"detail": "Built a system to manage insurance products, applicants, policyholders, and receipts. Technical lead for a team of up to 3.",
+			"tags": ["java", "spring", "mysql", "postgresql"]
+		},
+		{
+			"period": "2020/04 - 2022/03",
+			"title": "HR, Attendance & Payroll System",
+			"detail": "Developed a web system to manage HR, attendance, and payroll data. Technical lead for a team of up to 5.",
+			"tags": ["java", "spring", "javascript", "mysql"]
+		},
+		{
+			"period": "2019/09 - 2020/03",
+			"title": "Business Partner Management System",
+			"detail": "Built a web system for partner applications, registration, and search with Excel integration. Technical lead for a team of up to 4.",
+			"tags": ["java", "struts", "javascript", "oracle"]
+		},
+		{
+			"period": "2019/06 - 2019/09",
+			"title": "Logistics Management System",
+			"detail": "Developed a web system to track and visualize shipment status. Technical lead for a team of up to 4.",
+			"tags": ["java", "javascript", "oracle"]
+		},
+		{
+			"period": "2019/03 - 2019/06",
+			"title": "Experiment Data Management System",
+			"detail": "Built a system to search, view, and visualize experiment data in Excel.",
+			"tags": ["java", "javascript", "oracle"]
+		},
+		{
+			"period": "2018/11 - 2019/03",
+			"title": "Chemical Container Management System",
+			"detail": "Developed a full-stack system to register and link container/substance data with automated notifications.",
+			"tags": ["java", "javascript", "oracle"]
+		},
+		{
+			"period": "2018/06 - 2018/11",
+			"title": "Employee Management System",
+			"detail": "Built a web system for employee registration, search, and Excel data import.",
+			"tags": ["java", "javascript", "oracle"]
+		},
+		{
+			"period": "2018/01 - 2018/05",
+			"title": "Transit Route Management System",
+			"detail": "Developed a system including flight location tracking features.",
+			"tags": ["java", "jsp", "oracle"]
+		},
+		{
+			"period": "2017/01 - 2017/12",
+			"title": "Network Monitoring System",
+			"detail": "Built a network monitoring and visualization system using the Elastic Stack.",
+			"tags": ["python", "aws", "elasticsearch"]
+		},
+		{
+			"period": "2011/09 - 2012/04",
+			"title": "Survey App",
+			"detail": "Developed data-saving workflows and handled English localization.",
+			"tags": ["android", "sqlite"]
+		},
+		{
+			"period": "2009/09 - 2010/12",
+			"title": "Node Monitoring System",
+			"detail": "Built a system to monitor node status via specific signal reception.",
+			"tags": ["c++", "oracle"]
+		},
+		{
+			"period": "2009/01 - 2009/08",
+			"title": "E-commerce Inventory System",
+			"detail": "Developed a web system to manage procurement, inventory, and sales.",
+			"tags": ["java", "jsp", "postgresql"]
+		}
+	],
+
+	"projectsData": [
+		{
+			"title": "Portfolio Site",
+			"detail": "I built this portfolio site to make it easier for clients to get to know me as a developer.",
+			"tags": ["html", "javascript", "css"]
+		},
+		{
+			"title": "QR Code Generator",
+			"detail": "Developed a tool to easily generate QR codes from text or URLs, with a focus on a simple, easy-to-use interface.",
+			"tags": ["java", "springboot", "javascript", "thymeleaf", "css", "mysql"]
+		}
+	]
+}

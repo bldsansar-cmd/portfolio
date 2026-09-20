@@ -123,8 +123,23 @@ nav {
 	margin: var(--margin_biggest) 0;
 }
 
+nav.flexbox {
+	align-items: center;
+}
+
 nav a {
 	text-transform: uppercase;
+}
+
+.lang_link {
+	font-size: 0.8rem;
+	padding: var(--padding_small) var(--padding_common);
+	border: 1px solid var(--clr_unselected_text);
+	border-radius: var(--border_radius);
+}
+
+.lang_link:hover {
+	color: var(--clr_selected_text);
 }
 
 .selected {

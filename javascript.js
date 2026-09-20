@@ -2,66 +2,28 @@ let navSection, mobileNavSection;
 let aboutSection, experienceSection, projectsSection;
 let navInnerHtml, mobileHeaderHeight;
 
-const socialLinks = [
-	{ icon: 'fa-facebook-f', label: 'Facebook' },
-	{ icon: 'fa-twitter', label: 'Twitter' },
-	{ icon: 'fa-instagram', label: 'Instagram' },
-	{ icon: 'fa-youtube', label: 'Youtube' },
-];
+let currentLang = localStorage.getItem('lang') === 'ja' ? 'ja' : 'en';
+const contentCache = {};
 
-const commonTags = ['java', 'javascript', 'html', 'css', 'mysql'];
-
-const experienceData = [
-	{
-		period: '2000-2001',
-		title: 'front-end engineer',
-		detail: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores perspiciatis assumenda omnis hic voluptates minus harum quod, consequatur adipisci officiis eligendi, sed inventore nisi velit odio similique reiciendis provident in.',
-		tags: commonTags,
+const socialLinks = [{
+		icon: 'fa-facebook-f',
+		label: 'Facebook'
 	},
 	{
-		period: '2000-2001',
-		title: 'back-end engineer',
-		detail: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores perspiciatis assumenda omnis hic voluptates minus harum quod, consequatur adipisci officiis eligendi, sed inventore nisi velit odio similique reiciendis provident in.',
-		tags: commonTags,
+		icon: 'fa-twitter',
+		label: 'Twitter'
 	},
 	{
-		period: '2000-2001',
-		title: 'senior engineer and team leader',
-		detail: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores perspiciatis assumenda omnis hic voluptates minus harum quod, consequatur adipisci officiis eligendi, sed inventore nisi velit odio similique reiciendis provident in.',
-		tags: commonTags,
+		icon: 'fa-instagram',
+		label: 'Instagram'
 	},
 	{
-		period: '2000-2001',
-		title: 'senior engineer and advisor.',
-		detail: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores perspiciatis assumenda omnis hic voluptates minus harum quod, consequatur adipisci officiis eligendi, sed inventore nisi velit odio similique reiciendis provident in.',
-		tags: commonTags,
+		icon: 'fa-youtube',
+		label: 'Youtube'
 	},
 ];
 
-const projectsData = [
-	{
-		title: 'ABCD web application',
-		detail: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores perspiciatis assumenda omnis hic voluptates minus harum quod, consequatur adipisci officiis eligendi, sed inventore nisi velit odio similique reiciendis provident in.',
-		tags: commonTags,
-	},
-	{
-		title: 'QR code generator',
-		detail: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores perspiciatis assumenda omnis hic voluptates minus harum quod, consequatur adipisci officiis eligendi, sed inventore nisi velit odio similique reiciendis provident in.',
-		tags: commonTags,
-	},
-	{
-		title: 'Find near hospital',
-		detail: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores perspiciatis assumenda omnis hic voluptates minus harum quod, consequatur adipisci officiis eligendi, sed inventore nisi velit odio similique reiciendis provident in.',
-		tags: commonTags,
-	},
-	{
-		title: 'Near vegan (find nice vegan restaurant web service)',
-		detail: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores perspiciatis assumenda omnis hic voluptates minus harum quod, consequatur adipisci officiis eligendi, sed inventore nisi velit odio similique reiciendis provident in.',
-		tags: commonTags,
-	},
-];
-
-function loadPage() {
+async function loadPage() {
 	navSection = document.querySelector('nav');
 	mobileNavSection = document.querySelector('.mobile_header');
 
@@ -69,22 +31,75 @@ function loadPage() {
 	experienceSection = document.getElementById('experience');
 	projectsSection = document.getElementById('projects');
 
-	navInnerHtml = navSection.innerHTML;
 	mobileHeaderHeight = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--mobile_header_height'));
 
 	renderSocialButtons();
-	renderCards(experienceSection, experienceData, 'sub_section flexbox');
-	renderCards(projectsSection, projectsData, 'sub_section_hoverable');
-
-	setMobileNavSection();
+	await setLanguage(currentLang);
 
 	document.addEventListener('scroll', scrolling);
 	window.addEventListener('resize', setMobileNavSection);
 }
 
+async function loadContent(lang) {
+	if (!contentCache[lang]) {
+		const response = await fetch(`content.${lang}.json`);
+		contentCache[lang] = await response.json();
+	}
+	return contentCache[lang];
+}
+
+async function setLanguage(lang) {
+	const content = await loadContent(lang);
+	currentLang = lang;
+	localStorage.setItem('lang', lang);
+	document.documentElement.lang = lang;
+	renderPage(content);
+}
+
+function renderPage(content) {
+	document.getElementById('tagline').textContent = content.tagline;
+	document.getElementById('intro').textContent = content.intro;
+
+	document.getElementById('about_title').textContent = content.sectionTitles.about;
+	document.getElementById('experience_title').textContent = content.sectionTitles.experience;
+	document.getElementById('projects_title').textContent = content.sectionTitles.projects;
+
+	document.getElementById('about_content').innerHTML = content.aboutData
+		.map(paragraph => `<p>${paragraph}</p>`).join('');
+
+	document.getElementById('footer_text').innerHTML =
+		`${content.footerData} <a href="https://github.com/bldsansar-cmd/portfolio" target="_blank" rel="noopener noreferrer">GitHub</a>`;
+
+	experienceSection.querySelectorAll('.sub_section.flexbox').forEach(el => el.remove());
+	projectsSection.querySelectorAll('.sub_section_hoverable').forEach(el => el.remove());
+	renderCards(experienceSection, content.experienceData, 'sub_section flexbox');
+	renderCards(projectsSection, content.projectsData, 'sub_section_hoverable');
+
+	navInnerHtml = buildNavHtml(content);
+	navSection.innerHTML = '';
+	mobileNavSection.innerHTML = '';
+	setMobileNavSection();
+}
+
+function buildNavHtml(content) {
+	const otherLang = currentLang === 'en' ? 'ja' : 'en';
+	const switchLabel = otherLang === 'ja' ? '日本語' : 'en';
+	return `
+		<ul class="flexbox">
+			<li><a href="javascript:scrollToElm('about');" class="nav_link" id="nav_about">${content.nav.about}</a></li>
+			<li><a href="javascript:scrollToElm('experience');" class="nav_link" id="nav_experience">${content.nav.experience}</a></li>
+			<li><a href="javascript:scrollToElm('projects');" class="nav_link" id="nav_projects">${content.nav.projects}</a></li>
+			<li><a href="javascript:setLanguage('${otherLang}');" class="lang_link" id="lang_switch">${switchLabel}</a></li>
+		</ul>
+	`;
+}
+
 function renderSocialButtons() {
 	const container = document.querySelector('.social_buttons');
-	container.innerHTML = socialLinks.map(({ icon, label }) => `
+	container.innerHTML = socialLinks.map(({
+		icon,
+		label
+	}) => `
 		<div class="social_button">
 			<div class="icon"><i class="fab ${icon}"></i></div>
 			<span>${label}</span>
@@ -157,7 +172,17 @@ function scrolling() {
 
 function scrollToElm(id) {
 	const el = document.getElementById(id);
+	var topScrollHeight = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--mobile_header_height'));
+	const isMobile = window.innerWidth <= 900;
+
 	if (!el) return;
-	const y = el.getBoundingClientRect().top + window.scrollY - 50;
-	window.scrollTo({ top: y });
+
+	if (!isMobile) {
+		topScrollHeight = 50;
+	}
+
+	const y = el.getBoundingClientRect().top + window.scrollY - topScrollHeight;
+	window.scrollTo({
+		top: y
+	});
 }
